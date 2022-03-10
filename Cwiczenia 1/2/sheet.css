@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 2.7vw;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5% 1%;
+    width: 100%;
+    height: 100vh;
+    gap: 2%;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2%;
+}
+
+main {
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+nav {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+blockquote {
+    font-family: Courier New, serif;
+    font-size: 0.8rem;
+    font-weight: bolder;
+    white-space: pre-line;
+}
+
+blockquote > * {
+    margin: 0.5rem;
+}
+
+aside {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 2rem
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+.azure {
+    background-color: #EFF;
+    border: 3px solid black;
+    box-shadow: 0 0 6px 0 rgba(66, 68, 90, 1);
+}
+
+.azure > * {
+    margin: 0.5rem;
+}
+
+li {
+    margin-left: 2.5rem;
+    font-size: 1.2rem;
+}
+
+footer {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.animated {
+    animation-name: color;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes color {
+    from {color: red;}
+    to {color: blue;}
+}
+
+@media only screen and (min-width: 768px) {
+    * {
+        font-size: 1.2vw;
+    }
+
+    .center-container {
+        flex-direction: row;
+    }
+
+    .left-container {
+        width: 100%;
+    }
+
+    main {
+        width: fit-content;
+        margin-bottom: 0;
+    }
+
+    nav {
+        width: fit-content;
+    }
+
+    .aside {
+        max-width: 50%;
+    }
+}
