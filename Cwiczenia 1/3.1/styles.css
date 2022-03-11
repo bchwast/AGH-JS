@@ -1,0 +1,24 @@
+.animated {
+    animation: spin 15s infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateY(0deg);
+    }
+    33% {
+        transform: rotateY(360deg);
+    }
+    50% {
+        transform: rotateX(180deg)
+    }
+    66% {
+        transform: rotateX(0deg);
+    }
+    83% {
+        transform: rotateZ(180deg);
+    }
+    100% {
+        transform: rotateZ(0deg);
+    }
+}
