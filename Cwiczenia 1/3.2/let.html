@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Let it be</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/f81d4ff4fb.js" crossorigin="anonymous"></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="home.html">Learn You a Haskell for Great Good!</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="home.html">Home <i class="fas fa-home"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pattern.html">Pattern matching</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="guards.html">Guards, guards!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="where.html">Where! ?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="let.html">Let it be</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="case.html">Case expressions</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col container">
+      <div class="row">
+        <br>
+        <h1>Let it be</h1>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          Very similar to where bindings are let bindings. Where bindings are a syntactic construct that let you bind to variables at the end of a function and the whole function can see them, including all the guards. Let bindings let you bind to variables anywhere and are expressions themselves, but are very local, so they don't span across guards. Just like any construct in Haskell that is used to bind values to names, let bindings can be used for pattern matching. Let's see them in action! This is how we could define a function that gives us a cylinder's surface area based on its height and radius:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>cylinder :: (RealFloat a) => a -> a -> a
+cylinder r h =
+    let sideArea = 2 * pi * r * h
+        topArea = pi * r ^2
+    in  sideArea + 2 * topArea  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        The form is "let &ltbindings&gt in &ltexpression&gt". The names that you define in the let part are accessible to the expression after the in part. As you can see, we could have also defined this with a where binding. Notice that the names are also aligned in a single column. So what's the difference between the two? For now it just seems that let puts the bindings first and the expression that uses them later whereas where is the other way around.
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          The difference is that let bindings are expressions themselves. where bindings are just syntactic constructs. Remember when we did the if statement and it was explained that an if else statement is an expression and you can cram it in almost anywhere?
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> [if 5 > 3 then "Woo" else "Boo", if 'a' > 'b' then "Foo" else "Bar"]
+["Woo", "Bar"]
+ghci> 4 * (if 10 > 5 then 10 else 0) + 2
+42  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          You can also do that with let bindings.
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> 4 * (let a = 9 in a + 1) + 2
+42  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          They can also be used to introduce functions in a local scope:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> [let square x = x * x in (square 5, square 3, square 2)]
+[(25,9,4)]  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          If we want to bind to several variables inline, we obviously can't align them at columns. That's why we can separate them with semicolons.
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> (let a = 100; b = 200; c = 300 in a*b*c, let foo="Hey "; bar = "there!" in foo ++ bar)
+(6000000,"Hey there!") </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          You don't have to put a semicolon after the last binding but you can if you want. Like we said before, you can pattern match with let bindings. They're very useful for quickly dismantling a tuple into components and binding them to names and such.
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> (let (a,b,c) = (1,2,3) in a+b+c) * 100
+600  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          You can also put let bindings inside list comprehensions. Let's rewrite our previous example of calculating lists of weight-height pairs to use a let inside a list comprehension instead of defining an auxiliary function with a where.
+        </div>
+        <div class="col-lg-6 card">
+          <pre>calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          We include a let inside a list comprehension much like we would a predicate, only it doesn't filter the list, it only binds to names. The names defined in a let inside a list comprehension are visible to the output function (the part before the "|") and all predicates and sections that come after of the binding. So we could make our function return only the BMIs of fat people:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        We can't use the bmi name in the (w, h) <- xs part because it's defined prior to the let binding.
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          We omitted the in part of the let binding when we used them in list comprehensions because the visibility of the names is already predefined there. However, we could use a let in binding in a predicate and the names defined would only be visible to that predicate. The in part can also be omitted when defining functions and constants directly in GHCi. If we do that, then the names will be visible throughout the entire interactive session.
+        </div>
+        <div class="col-lg-6 card">
+          <pre>ghci> let zoot x y z = x * y + z
+ghci> zoot 3 9 2
+29
+ghci> let boot x y z = x * y + z in boot 3 4 2
+14
+ghci> boot
+&ltinteractive&gt:1:0: Not in scope: `boot'
+          </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        If let bindings are so cool, why not use them all the time instead of where bindings, you ask? Well, since let bindings are expressions and are fairly local in their scope, they can't be used across guards. Some people prefer where bindings because the names come after the function they're being used in. That way, the function body is closer to its name and type declaration and to some that's more readable.
+      </div>
+      <br>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+</main>
+
+<footer class="navbard-dark bg-dark text-center text-lg-start">
+  <div class="text-center text-light p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    PDF source:
+    <a class="text-light" href="http://barbra-coco.dyndns.org/yuri/functinal_programming/Learn%20You%20a%20Haskell%20for%20Great%20Good.pdf">Learn You a Haskell for Great Good!</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Case expressions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/f81d4ff4fb.js" crossorigin="anonymous"></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="home.html">Learn You a Haskell for Great Good!</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="home.html">Home <i class="fas fa-home"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pattern.html">Pattern matching</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="guards.html">Guards, guards!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="where.html">Where! ?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="let.html">Let it be</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="case.html">Case expressions</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col container">
+      <div class="row">
+        <br>
+        <h1>Case expressions</h1>
+        <br>
+        Many imperative languages (C, C++, Java, etc.) have case syntax and if you've ever programmed in them, you probably know what it's about. It's about taking a variable and then executing blocks of code for specific values of that variable and then maybe including a catch-all block of code in case the variable has some value for which we didn't set up a case.
+        <br>
+        <br>
+        Haskell takes that concept and one-ups it. Like the name implies, case expressions are, well, expressions, much like if else expressions and let bindings. Not only can we evaluate expressions based on the possible cases of the value of a variable, we can also do pattern matching. Hmmm, taking a variable, pattern matching it, evaluating pieces of code based on its value, where have we heard this before? Oh yeah, pattern matching on parameters in function definitions! Well, that's actually just syntactic sugar for case expressions. These two pieces of code do the same thing and are interchangeable:
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          <pre>head' :: [a] -> a
+head' [] = error "No head for empty lists!"
+head' (x:_) = x</pre>
+        </div>
+        <div class="col-lg-6 card">
+          <pre>head' :: [a] -> a
+head' xs = case xs of [] -> error "No head for empty lists!"
+                      (x:_) -> x  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          As you can see, the syntax for case expressions is pretty simple:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>case expression of pattern -> result
+                   pattern -> result
+                   pattern -> result
+                   ...  </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        "expression" is matched against the patterns. The pattern matching action is the same as expected: the first pattern that matches the expression is used. If it falls through the whole case expression and no suitable pattern is found, a runtime error occurs.
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          Whereas pattern matching on function parameters can only be done when defining functions, case expressions can be used pretty much anywhere. For instance:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of [] -> "empty."
+                                               [x] -> "a singleton list."
+                                               xs -> "a longer list." </pre>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 card">
+          They are useful for pattern matching against something in the middle of an expression. Because pattern matching in function definitions is syntactic sugar for case expressions, we could have also defined this like so:
+        </div>
+        <div class="col-lg-6 card">
+          <pre>describeList :: [a] -> String
+describeList xs = "The list is " ++ what xs
+    where what [] = "empty."
+          what [x] = "a singleton list."
+          what xs = "a longer list." </pre>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+</main>
+
+<footer class="navbard-dark bg-dark text-center text-lg-start">
+  <div class="text-center text-light p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    PDF source:
+    <a class="text-light" href="http://barbra-coco.dyndns.org/yuri/functinal_programming/Learn%20You%20a%20Haskell%20for%20Great%20Good.pdf">Learn You a Haskell for Great Good!</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

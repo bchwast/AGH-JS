@@ -50,7 +50,7 @@
         </div>
     </header>
 
-    <main class="animated">
+    <main tabindex="0" class="animated">
         <div class="w3-row-padding">
             <div class="w3-col s0 l3 w3-text-white">.</div>
             <div class="w3-border w3-col s12 l4 w3-margin">
@@ -106,7 +106,7 @@
 <script>
     function myFunc(id) {
         var x = document.getElementById(id);
-        if (x.className.indexOf("w3-show") == -1) {
+        if (x.className.indexOf("w3-show") === -1) {
             x.className += " w3-show";
         } else {
             x.className = x.className.replace(" w3-show", "");

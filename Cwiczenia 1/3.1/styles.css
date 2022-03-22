@@ -1,5 +1,9 @@
-.animated {
-    animation: spin 15s infinite;
+.animated:focus {
+    animation: spin 20s infinite;
+}
+
+.animated:active {
+    animation: none;
 }
 
 @keyframes spin {

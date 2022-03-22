@@ -1,0 +1,10 @@
+.card-img-top {
+    height: 20vh;
+    max-width: 20vh;
+}
+
+.card-image {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
