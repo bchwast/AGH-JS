@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="module_loader.js" type="module"></script>
+    <button id="start" type="button">Start</button>
+    <button id="stop" type="button">Stop</button>
+
+    <form>
+        <label for="nick">Nick: </label>
+        <input id="nick" type="text" value="Player">
+        <div id="level1">
+            <label for="squares1">Number of squares: </label>
+            <input id="squares1" type="number" value="20">
+            <label for="speed1">Speed of circle: </label>
+            <input id="speed1" type="number" value="5">
+            <label for="counterSpeed1">Speed of counter: </label>
+            <input id="counterSpeed1" type="number" value="1">
+        </div>
+        <div id="level2">
+            <label for="squares2">Number of squares: </label>
+            <input id="squares2" type="number" value="40">
+            <label for="speed2">Speed of circle: </label>
+            <input id="speed2" type="number" value="10">
+            <label for="counterSpeed2">Speed of counter: </label>
+            <input id="counterSpeed2" type="number" value="2">
+        </div>
+        <div id="level3">
+            <label for="squares3">Number of squares: </label>
+            <input id="squares3" type="number" value="60">
+            <label for="speed3">Speed of circle: </label>
+            <input id="speed3" type="number" value="15">
+            <label for="counterSpeed3">Speed of counter: </label>
+            <input id="counterSpeed3" type="number" value="3">
+        </div>
+    </form>
+
+    <div id="game">
+        <game-table score="0" time="180"></game-table>
+        <leaderboard-table></leaderboard-table>
+        <game-board></game-board>
+    </div>
+
+    <script src="controls.js"></script>
+</body>
+</html>

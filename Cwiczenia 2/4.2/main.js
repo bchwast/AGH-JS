@@ -1,8 +1,8 @@
 import {drawPieChart} from "./modules/pie.js";
 import {drawBarChart} from "./modules/bar.js";
 
-// const map1 = new Map([["pies", 2], ["mazik", 3]]);
-const array1 = [3, 4, 5, 6, 9];
+const map1 = new Map([["pies", 2], ["mazik", 3]]);
+// const array1 = [3, 4, 5, 6, 9];
 const array2 = [];
 
 function pie(array) {
@@ -17,12 +17,12 @@ function bar(array) {
 
 const pieButton = document.getElementById("showPie");
 pieButton.addEventListener("click", () => {
-    pie(array1);
+    pie(map1));
 });
 
 const barButton = document.getElementById("showBar");
 barButton.addEventListener("click", () => {
-    bar(array1);
+    bar(map1);
 });
 
 const submit = document.getElementById("submit");
