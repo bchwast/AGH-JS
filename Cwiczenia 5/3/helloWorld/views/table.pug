@@ -1,0 +1,16 @@
+extends index.pug
+
+block table
+    table(class='table')
+        tr
+            th x
+            th Operation
+            th y
+            th Result
+
+        each obj in json
+            tr
+                td #{obj.x}
+                td #{obj.operation}
+                td #{obj.y}
+                td #{obj.result}
