@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    const updateDiv = (text='Downloading data', id='remote') => {
+        const oldDiv = document.getElementById(id);
+        const newDiv = document.createElement('div');
+        const newText = document.createTextNode(text);
+        newDiv.appendChild(newText);
+        newDiv.setAttribute('id', id);
+        oldDiv.parentNode.replaceChild(newDiv, oldDiv);
+    }
+
+    const downloadRemote = async () => {
+        const area = document.getElementById('area').value;
+        const location = document.getElementById('location').value;
+        const url = `http://worldtimeapi.org/api/timezone/${area}/${location}.json`;
+        const settings = {
+            method: 'GET',
+            origin: 'http://localhost:8080',
+        };
+
+        try {
+            const response = await fetch(url, settings);
+
+            if (!response.ok) throw response.statusText;
+            console.log('remote: Downloading successful');
+            const json = await response.json();
+
+            const datetime = json.datetime.split('T');
+            const date = datetime[0];
+            const time = datetime[1];
+            updateDiv(`${date}, ${time}`);
+        } catch (err) {
+            console.log(err);
+            console.log('remote: Downloading not successful');
+            if (err === 'This website is currently experiencing high load.') {
+                updateDiv('The server is overloaded');
+            } else {
+                updateDiv(err);
+            }
+        }
+    }
+
+    const downloadLocal = async () => {
+        const local = document.getElementById('local');
+        const settings = {
+            method: 'GET',
+            origin: 'http://localhost:8080',
+            'Content-Type': 'text/html',
+        };
+        try {
+            const response = await fetch('http://localhost:8081', settings);
+            if (!response.ok) throw response.statusText;
+            console.log('local: Downloading successful');
+            const htmlText = await response.text();
+            const div = document.createElement('div');
+            local.innerHTML = htmlText;
+            local.replaceChild(div, local.childNodes[0]);
+        } catch (err) {
+            console.log('local: Downloading not successful');
+            console.log(err);
+        }
+    }
+
+    const download = () => {
+        downloadRemote();
+        downloadLocal();
+    }
+</script>
+<body>
+    <form>
+        <label for="area">Area: </label>
+        <input id="area" name="area" type="text">
+        <label for="location">Location: </label>
+        <input id="location" name="location" type="text">
+        <input type="button" value="Pobierz" onclick="download()">
+    </form>
+    <h1>Remote</h1>
+    <div id='remote'>
+        Remote date and time
+    </div>
+    <!-- ***************** -->
+    <h1>Local</h1>
+    <div id='local'>
+        Local date and time
+    </div>
+</body>
+</html>
